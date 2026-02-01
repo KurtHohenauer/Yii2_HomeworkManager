@@ -16,7 +16,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'teacher_lastname')->textInput(['maxlength' => true]) ?>
 
+    <?php if(!$model->isNewRecord) :?>
+
     <?= $form->field($model, 'teacher_active')->textInput() ?>
+
+    <?php endif ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

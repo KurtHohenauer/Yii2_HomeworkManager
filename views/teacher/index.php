@@ -6,6 +6,8 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\bootstrap5\Modal;
+use yii\bootstrap5\Button;
 /** @var yii\web\View $this */
 /** @var app\models\TeacherSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -18,7 +20,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Teacher'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Button::widget([
+            'label' => 'Create Teacher',
+            'options' => [
+                'class' => 'btn btn-success',
+                'onclick' => 'Teachercreate()' // Correctly call the function
+            ]
+        ]) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -44,5 +52,16 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
     <?php Pjax::end(); ?>
+
+    <?php Modal::begin([
+            'id' => 'AjaxModalCreateTeacher',
+    'title' => 'Hello world',
+    'toggleButton' => ['label' => 'click me', 'onClick' => 'Teachercreate'],
+    ]);
+
+    echo 'Say hello...';
+
+    Modal::end();
+    ?>
 
 </div>

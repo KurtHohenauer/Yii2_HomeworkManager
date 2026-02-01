@@ -2,8 +2,10 @@
 
 namespace app\controllers;
 
+use app\assets\TeacherAsset;
 use app\models\Teacher;
 use app\models\TeacherSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,6 +40,7 @@ class TeacherController extends Controller
      */
     public function actionIndex()
     {
+        TeacherAsset::register($this->view);
         $searchModel = new TeacherSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -77,7 +80,7 @@ class TeacherController extends Controller
             $model->loadDefaultValues();
         }
 
-        return $this->render('create', [
+        return $this->renderAjax('create', [
             'model' => $model,
         ]);
     }
