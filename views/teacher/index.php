@@ -20,13 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Button::widget([
-            'label' => 'Create Teacher',
-            'options' => [
-                'class' => 'btn btn-success',
-                'onclick' => 'Teachercreate()' // Correctly call the function
-            ]
-        ]) ?>
+        <?= Html::a(Yii::t('app', 'Create Teacher'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -38,12 +32,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'teacher_id',
             'teacher_firstname',
             'teacher_lastname',
-            'teacher_active',
+            [       'format' => 'html',
+                    'attribute' => 'teacher_active',
+                    'value' => function($url, $model, $key){
+                    return $model ? '<i class="bi bi-check2-circle text-success"></i>' : '<i class="bi bi-x-circle text-danger"></i>';
+                }
+            ],
             [
                 'class' => ActionColumn::className(),
+                'template' => '{delete}',
                 'urlCreator' => function ($action, Teacher $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'teacher_id' => $model->teacher_id]);
                  }
@@ -53,15 +52,5 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php Pjax::end(); ?>
 
-    <?php Modal::begin([
-            'id' => 'AjaxModalCreateTeacher',
-    'title' => 'Hello world',
-    'toggleButton' => ['label' => 'click me', 'onClick' => 'Teachercreate'],
-    ]);
-
-    echo 'Say hello...';
-
-    Modal::end();
-    ?>
 
 </div>

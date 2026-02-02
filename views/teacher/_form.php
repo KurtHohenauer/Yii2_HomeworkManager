@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var app\models\Teacher $model */
@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="teacher-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id' => 'TacherForm' ]); ?>
 
     <?= $form->field($model, 'teacher_firstname')->textInput(['maxlength' => true]) ?>
 

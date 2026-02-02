@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\assets\TeacherAsset;
 use app\models\Teacher;
 use app\models\TeacherSearch;
@@ -74,13 +75,14 @@ class TeacherController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'teacher_id' => $model->teacher_id]);
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Teacher created successfully.'));
+                return $this->redirect(['index']);
             }
         } else {
             $model->loadDefaultValues();
         }
 
-        return $this->renderAjax('create', [
+        return $this->render('create', [
             'model' => $model,
         ]);
     }
